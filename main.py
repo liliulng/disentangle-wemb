@@ -157,25 +157,22 @@ def prepare_data():
 
 
 def main():
-    
-    df_og = prepare_data()
-
-    for i in range(1, 13): 
-        df = df_og.copy()
-        print(f"Processing layer {i}...")
-        if device.type == 'cuda':
-            torch.cuda.synchronize()
-        start = time.time()
-        df["embeddings"] = [get_embedding(sent, subtoken_index, i) for sent, subtoken_index in zip(df.example, df.subtoken_index)]
-        df["embeddings_shape"] = [x.shape for x in df.embeddings]
-        df = sum_emb(df)  
-        df = df.rename(columns={'sum_emb': 'word_emb'})  # If using mean method, rename from 'mean_emb'
-        df = df[['lexname', 'example', 'word_upos', 'word_features', 'word_offset', 'subtoken_index', 'embeddings', 'embeddings_shape', 'word_emb']]
-        process(df, i)  # Disentangle lexical and grammatical vectors, results will be saved in the 'results' folder
-        if device.type == 'cuda':
-            torch.cuda.synchronize()
-        end = time.time()
-        print(f"Layer {i} processed in {end - start:.2f} seconds.")
+    layer_num = 12
+    df = prepare_data()
+    print(f"Processing layer {layer_num}...")
+    if device.type == 'cuda':
+        torch.cuda.synchronize()
+    start = time.time()
+    df["embeddings"] = [get_embedding(sent, subtoken_index, layer_num) for sent, subtoken_index in zip(df.example, df.subtoken_index)]
+    df["embeddings_shape"] = [x.shape for x in df.embeddings]
+    df = sum_emb(df)  
+    df = df.rename(columns={'sum_emb': 'word_emb'})  # If using mean method, rename from 'mean_emb'
+    df = df[['lexname', 'example', 'word_upos', 'word_features', 'word_offset', 'subtoken_index', 'embeddings', 'embeddings_shape', 'word_emb']]
+    process(df, layer_num)  # Disentangle lexical and grammatical vectors, results will be saved in the 'results' folder
+    if device.type == 'cuda':
+        torch.cuda.synchronize()
+    end = time.time()
+    print(f"Layer {layer_num} processed in {end - start:.2f} seconds.")
 
 
 if __name__ == "__main__":
