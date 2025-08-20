@@ -1,7 +1,7 @@
 # Disentangling lexical and grammatical information in word embeddings
 
 ### Installation
-To run the experiment, please install python3 and the following packages:
+To run the experiment, please install python3 and the following packages:  
 `
 python -m pip install -r requirements.txt
 `
