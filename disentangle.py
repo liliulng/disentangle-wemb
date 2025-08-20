@@ -121,10 +121,6 @@ def split_lex_flex(df, gp_col, max_iter_time):
     # flex : Group by inflection and get the initial mean inflectional embedding
     df['flex_mean'] = get_flex_mean(df, gp_col, 'word_emb', 'flex_mean') 
 
-    # # Remake the word embeddings with initial lex and flex
-    # df['new_wemb_before'] = df.lex_mean + df.flex_mean
-    # df['remake_error_before'] = pd.Series(torch.linalg.vector_norm(torch.stack(list(df.new_wemb_before)) - torch.stack(list(df.word_emb)), dim=1), index=df.index)
-
     df['delta_flex_list'] = [[]for i in range(len(df))]
     df['delta_lex_list'] = [[]for i in range(len(df))]
 
@@ -167,13 +163,6 @@ def split_lex_flex(df, gp_col, max_iter_time):
         # 8. Update flex_mean
         df['flex_mean'] = df.new_flex_mean
     
-    # print(f"\nThe norm of final lexical and inflectional embeddings :")
-    # df = lex_flex_proj(df, 'lex_mean', 'flex_mean', gp_col)
-
-    # # Remake the word embeddings with final lex and flex
-    # df['new_wemb_after'] = df.word_lex + df.word_flex
-    # df['remake_error_after'] = pd.Series(torch.linalg.vector_norm(torch.stack(list(df.new_wemb_after)) - torch.stack(list(df.word_emb)), dim=1), index=df.index)
-
     return df
 
 def delta_statis(df, gp_col, delta_col):
@@ -184,18 +173,6 @@ def delta_statis(df, gp_col, delta_col):
     delta = gp[delta_col].first().reset_index(name=delta_col)
     statis = statis.merge(delta, on=gp_col)
     statis = statis.set_index(gp_col)
-
-    # # Plot all groups in the same plot
-    # for i in statis.index:
-    #     l_delta = statis[statis.index == i].iloc[0, 2]
-    #     x = list(range(len(l_delta)))
-    #     plt.plot(x, l_delta, label=i)
-    # # plt.xticks()
-    # plt.xlabel('Iteration')
-    # plt.ylabel('Delta')
-    # plt.legend(title=gp_col)
-    # plt.show()
-    
     return statis
 
 def double_plot(df, cols, measure_method='cosine'):
@@ -256,8 +233,6 @@ def double_plot(df, cols, measure_method='cosine'):
 
 def pair_dist(pairs, measure_method):
     '''Calculate pairwise distance'''
-    # emb1 = list(zip(*pairs))[0] 
-    # emb2 = list(zip(*pairs))[1]
     emb1, emb2 = zip(*pairs)
     if measure_method == 'cosine':
         dist = F.cosine_similarity(torch.stack(emb1), torch.stack(emb2), dim=1)
@@ -452,8 +427,6 @@ def remake_emb(df, df_lex, df_flex_dict, feature_names):
     for col in flex_cols_before:
         df[col] = ensure_tensor_series(df[col], emb0)
 
-    # df['new_wemb_before'] = df.lex_mean + df[flex_cols_before].sum(axis=1)
-    # debug_tensor_cols(df, flex_cols_before + ['lex_mean', 'word_emb'])
     df['new_wemb_before'] = [
         row['lex_mean'] + torch.mean(torch.stack([row[col] for col in flex_cols_before]), dim=0)
         for _, row in df.iterrows()
@@ -465,7 +438,6 @@ def remake_emb(df, df_lex, df_flex_dict, feature_names):
     df['word_lex'] = df_lex.word_lex
     for feat in feature_names:
         df_flex = df_flex_dict[feat]
-    #     df[f'word_flex_{feat}'] = df_flex.word_flex.values
         flex_vals = df_flex['word_flex'].tolist()
         k = 0
         res = []
