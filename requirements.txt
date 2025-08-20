@@ -1,0 +1,10 @@
+pandas
+numpy
+seaborn
+matplotlib
+stanza
+torch
+transformers==4.27.3
+sentencepiece
+
+
