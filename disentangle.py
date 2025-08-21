@@ -667,8 +667,8 @@ def process(df, layer_num):
     t = remake_emb(df_v, df_v_lex, df_flex_dict, feature_names)
     rem_v = remake_eval(t)
 
-    rem_results = pd.concat([rem_n, rem_adj, rem_v], axis=0)
-    rem_results.index = ['nouns', 'adjectives', 'verbs']
+    results_rem = pd.concat([rem_n, rem_adj, rem_v], axis=0)
+    results_rem.index = ['nouns', 'adjectives', 'verbs']
 
     # Save results
 
@@ -676,6 +676,6 @@ def process(df, layer_num):
         'results_lex': results_lex,
         'results_flex': results_flex,
         'results_flex_rdn': results_flex_rdn,
-        'rem_results': rem_results
+        'results_rem': results_rem
     }
     save_to_folder(all_results, f'results-layer-{layer_num}')
