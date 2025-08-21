@@ -150,13 +150,10 @@ def split_lex_flex(df, gp_col, max_iter_time):
         df['new_flex_mean'] = get_flex_mean(df, gp_col, 'word_flex', 'new_flex_mean')
 
         # 7. delta_flex = new_flex_mean - flex_mean
-        # df['delta_flex'] = pd.Series(torch.linalg.vector_norm(torch.stack(list(df.new_flex_mean)) - torch.stack(list(df.flex_mean)), dim=1), index=df.index)
         new_flex_mean = torch.stack(df.new_flex_mean.tolist())
         flex_mean = torch.stack(df.flex_mean.tolist())
         df['delta_flex'] = pd.Series(torch.linalg.vector_norm(new_flex_mean - flex_mean, dim=1), index=df.index)
         
-        # df['delta_flex'] = pd.Series(F.cosine_similarity(torch.stack(list(df.new_flex_mean)),torch.stack(list(df.flex_mean)),dim=1),index=df.index)
-
         for lst, delta in zip(df.delta_flex_list, df.delta_flex):
           lst.append(delta)
 
