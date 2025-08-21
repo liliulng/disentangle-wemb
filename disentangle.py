@@ -402,13 +402,6 @@ def debug_tensor_cols(df, cols):
             print(f"[DEBUG] Column {col}: {bad.sum()} bad rows (non-Tensor)")
             print(df.loc[bad, [col, 'lexname', 'word_features']].head())
 
-def debug_tensor_cols(df, cols):
-    for col in cols:
-        bad = df[col].apply(lambda x: not isinstance(x, torch.Tensor))
-        if bad.any():
-            print(f"[DEBUG] Column {col}: {bad.sum()} bad rows (non-Tensor)")
-            print(df.loc[bad, [col, 'lexname', 'word_features']].head())
-
 def ensure_tensor_series(s: pd.Series, ref: torch.Tensor) -> pd.Series:
     return s.apply(lambda x: x if isinstance(x, torch.Tensor) else torch.zeros_like(ref))
 
