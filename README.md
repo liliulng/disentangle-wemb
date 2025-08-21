@@ -14,7 +14,7 @@ Contains 25,679 lexical entries extracted from LN-fr, along with their lemma, PO
 - **stanza-LNfr.tar.gz**  
 Contains all LN-fr lexical entries with their example sentences annotated with [Stanza](https://stanfordnlp.github.io/stanza/available_models.html). Extract before use:<br/>`tar -xvzf stanza-LNfr.tar.gz`
 
-These datasets are derived from the French Lexical Network (LN-fr) v.1, a handcrafted lexical resource containing 3,127 idioms, 22,551 free lexemes, and 47,395 contextual sentences for these entries (Lux-Pogodalla & Polguère, 2011). The original LN-fr data is downloadable [here](https://www.ortolang.fr/market/lexicons/lexical-system-fr/v1?lang=en).
+These datasets are derived from the French Lexical Network (LN-fr) v3.1, a handcrafted lexical resource containing 3,127 idioms, 22,551 free lexemes, and 47,395 contextual sentences for these entries (Lux-Pogodalla & Polguère, 2011). The original LN-fr data is downloadable [here](https://www.ortolang.fr/market/lexicons/lexical-system-fr/v3.1).
 
 For our experiment, we focused only on lexemes. We combined the two datasets above for analysing and evaluation (see `main.py`).
 
