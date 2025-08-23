@@ -19,10 +19,12 @@ These datasets are derived from the French Lexical Network (LN-fr) v3.1, a handc
 For our experiment, we focused only on lexemes. We combined the two datasets above for analysing and evaluation (see `main.py`).
 
 ## Source code
+
 - **main.py**  
 This is the main entry point of the project. Running this script will execute the full pipeline of data processing and experiment.
+
 - **disentangle.py**  
-This script contains helper functions (e.g., process) that are imported and used inside main.py. Users do not need to run this file directly, but it must be kept in the same directory so that it can be imported properly.
+This script contains helper functions (e.g., process) that are imported and used inside `main.py`. Users do not need to run this file directly, but it must be kept in the same directory so that it can be imported properly.
 
 ## References
 - Veronika Lux-Pogodalla, Alain Polguère (2011). [Construction of a French Lexical Network: Methodological Issues](https://hal.science/hal-00686467v1/document). *First International Workshop on Lexical Resources (WoLeR 2011)*, Ljubljana, Slovenia. pp. 54-61.
