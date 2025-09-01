@@ -455,8 +455,7 @@ def remake_emb(df, df_lex, df_flex_dict, feature_names):
 def remake_eval(df):
     # Calculate the difference between initial and final remake error
     df['remake_error_delta'] = (df.remake_error_after - df.remake_error_before) / df.remake_error_before
-    # print(f"Mean remake error before : {df.remake_error_before.mean():.2f}, after: {df.remake_error_after.mean():.2f}")
-    # print(f"Mean remake error delta: {df.remake_error_delta.mean()*100:.2f}%")
+
     # double_plot(df, ['remake_error_before', 'remake_error_after'], measure_method='remake_error')
     result = pd.DataFrame({
         'remake_error_before': [round(df.remake_error_before.mean().item(), 4)],
@@ -500,7 +499,6 @@ def eval_lex(df, n_repeat=10):
     result_lex = pair_eval('lex', df, 'word_emb', 'word_lex', feature_name="word_features")
     print('\nEvaluation : random')
     result_rdm = repeat_func(func=pair_eval, pair_num=10000, n_repeat=n_repeat, type='random', feature_name="word_features", emb_type_before="word_emb", emb_type_after="word_lex", df=df)
-    # make a dataframe with the results
     result = pd.concat([result_lex, result_rdm], axis=1)
     return result
 
@@ -563,7 +561,7 @@ def save_to_folder(df_list, folder):
             print(f"Saved {name} to {file_path}")
 
 def process(df, layer_num):
-    # df = pd.read_pickle('combined-stanza-lexemb-sum-checked-layer12.pkl')
+    
     df_n, df_adj, df_v = prepare_df(df)
 
     # Distill the lexical vectors
@@ -633,7 +631,6 @@ def process(df, layer_num):
         eval_v_finit
     ], axis=0)
 
-    # make multi-index columns
     new_index = ([("Noun",r) for r in results_flex.index[:2]] + [("Adjective",r) for r in results_flex.index[2:6]] + [("Verb",r) for r in results_flex.index[6:]])
     results_flex.index = pd.MultiIndex.from_tuples(new_index)
 
@@ -644,7 +641,6 @@ def process(df, layer_num):
     ], axis=0)
 
     results_flex_rdn.index = ['N-number', 'Adj-number', 'Adj-gender', 'V-mood', 'V-number', 'V-person', 'V-tense', 'V-finiteness']
-    # results_flex_rdn.index.name = 'random'
 
     # Output: results_flex, results_flex_rdn
 
