@@ -30,3 +30,5 @@ This script contains helper functions (e.g., process) that are imported and used
 - Veronika Lux-Pogodalla, Alain Polguère (2011). [Construction of a French Lexical Network: Methodological Issues](https://hal.science/hal-00686467v1/document). *First International Workshop on Lexical Resources (WoLeR 2011)*, Ljubljana, Slovenia. pp. 54-61.
 - ATILF (2024). [*French Lexical Network (fr-LN)*](https://www.ortolang.fr/market/lexicons/lexical-system-fr/v3.1), v3.1, www.ortolang.fr.
 
+## Citation
+Li Liu, François Lareau (2025). [Disentangling lexical and grammatical information in word embeddings](https://preview.aclanthology.org/iwcs-25-ingestion/2025.iwcs-1.29/). In *Proceedings of the 16th International Conference on Computational Semantics*, pages 331–340, Düsseldorf, Germany. Association for Computational Linguistics.
